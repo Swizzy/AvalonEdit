@@ -956,6 +956,7 @@ namespace ICSharpCode.AvalonEdit
 		{
 			if (fileName == null)
 				throw new ArgumentNullException("fileName");
+		    Document.FileName = fileName;
 			using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read)) {
 				Load(fs);
 			}
