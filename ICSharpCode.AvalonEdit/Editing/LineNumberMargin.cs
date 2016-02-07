@@ -144,16 +144,19 @@ namespace ICSharpCode.AvalonEdit.Editing
 		/// </summary>
 		protected int maxLineNumberLength = 1;
 		
+        /// <summary>
+        /// Minimum length of a line number, in characters
+        /// </summary>
+	    internal int minLineNumberLength = 2;
+
 		void OnDocumentLineCountChanged()
 		{
 			int documentLineCount = Document != null ? Document.LineCount : 1;
 			int newLength = documentLineCount.ToString(CultureInfo.CurrentCulture).Length;
-			
-			// The margin looks too small when there is only one digit, so always reserve space for
-			// at least two digits
-			if (newLength < 2)
-				newLength = 2;
-			
+
+			if (newLength < minLineNumberLength)
+                newLength = minLineNumberLength;
+
 			if (newLength != maxLineNumberLength) {
 				maxLineNumberLength = newLength;
 				InvalidateMeasure();

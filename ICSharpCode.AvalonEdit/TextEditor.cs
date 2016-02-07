@@ -563,6 +563,33 @@ namespace ICSharpCode.AvalonEdit
 		}
 		#endregion
 
+        #region LineNumbersMinimumCount
+        /// <summary>
+        /// LineNumbersMinimumCount dependency property.
+        /// </summary>
+        public static readonly DependencyProperty LineNumbersMinimumCountProperty = DependencyProperty.Register("LineNumbersMinimumCount", typeof(int), typeof(TextEditor), new FrameworkPropertyMetadata(2, OnLineNumbersMinimumCountChanged));
+
+	    /// <summary>
+	    /// Gets/sets the minimum number of characters to display in the line number margin (only have an effect on the width of it)
+	    /// </summary>
+	    public int LineNumbersMinimumCount {
+            get { return (int)GetValue(LineNumbersMinimumCountProperty); }
+            set { SetValue(LineNumbersMinimumCountProperty, value); }
+	    }
+
+        static void OnLineNumbersMinimumCountChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+            TextEditor editor = (TextEditor)d;
+            var lineNumberMargin = editor.TextArea.LeftMargins.FirstOrDefault(margin => margin is LineNumberMargin) as LineNumberMargin; ;
+
+            if (lineNumberMargin != null)
+            {
+                lineNumberMargin.minLineNumberLength = (int)e.NewValue;
+            }
+		}
+
+        #endregion
+
 		#region TextBoxBase-like methods
 		/// <summary>
 		/// Appends text to the end of the document.
