@@ -536,6 +536,33 @@ namespace ICSharpCode.AvalonEdit
 		}
 		#endregion
 		
+        #region LineNumbersBackground
+		/// <summary>
+		/// LineNumbersBackground dependency property.
+		/// </summary>
+		public static readonly DependencyProperty LineNumbersBackgroundProperty =
+			DependencyProperty.Register("LineNumbersBackground", typeof(Brush), typeof(TextEditor),
+			                            new FrameworkPropertyMetadata(Brushes.White, OnLineNumbersBackgroundChanged));
+
+		/// <summary>
+		/// Gets/sets the Brush used for displaying the Background color of line numbers.
+		/// </summary>
+		public Brush LineNumbersBackground {
+			get { return (Brush)GetValue(LineNumbersBackgroundProperty); }
+			set { SetValue(LineNumbersBackgroundProperty, value); }
+		}
+
+		static void OnLineNumbersBackgroundChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			TextEditor editor = (TextEditor)d;
+			var lineNumberMargin = editor.TextArea.LeftMargins.FirstOrDefault(margin => margin is LineNumberMargin) as LineNumberMargin;;
+
+			if (lineNumberMargin != null) {
+				lineNumberMargin.SetValue(Control.BackgroundProperty, e.NewValue);
+			}
+		}
+		#endregion
+
 		#region TextBoxBase-like methods
 		/// <summary>
 		/// Appends text to the end of the document.

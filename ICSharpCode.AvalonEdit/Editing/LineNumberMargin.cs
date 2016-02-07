@@ -77,6 +77,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 		{
 			TextView textView = this.TextView;
 			Size renderSize = this.RenderSize;
+            drawingContext.DrawRectangle((Brush)GetValue(Control.BackgroundProperty), null, new Rect(0, 0, renderSize.Width, renderSize.Height));
 			if (textView != null && textView.VisualLinesValid) {
 				var foreground = (Brush)GetValue(Control.ForegroundProperty);
 				foreach (VisualLine line in textView.VisualLines) {
