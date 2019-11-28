@@ -27,6 +27,10 @@ namespace ICSharpCode.AvalonEdit.Snippets
 	[Serializable]
 	public class SnippetTextElement : SnippetElement
 	{
+        public SnippetTextElement() { }
+
+	    public SnippetTextElement(string text) { Text = text; }
+
 		string text;
 
 		/// <summary>

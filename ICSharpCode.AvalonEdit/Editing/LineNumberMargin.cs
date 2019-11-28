@@ -77,6 +77,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 		{
 			TextView textView = this.TextView;
 			Size renderSize = this.RenderSize;
+            drawingContext.DrawRectangle((Brush)GetValue(Control.BackgroundProperty), null, new Rect(0, 0, renderSize.Width, renderSize.Height));
 			if (textView != null && textView.VisualLinesValid) {
 				var foreground = (Brush)GetValue(Control.ForegroundProperty);
 				foreach (VisualLine line in textView.VisualLines) {
@@ -142,6 +143,11 @@ namespace ICSharpCode.AvalonEdit.Editing
 		/// Maximum length of a line number, in characters
 		/// </summary>
 		protected int maxLineNumberLength = 1;
+		
+        /// <summary>
+        /// Minimum length of a line number, in characters
+        /// </summary>
+	    internal int minLineNumberLength = 2;
 
 		void OnDocumentLineCountChanged()
 		{
@@ -152,6 +158,8 @@ namespace ICSharpCode.AvalonEdit.Editing
 			// at least two digits
 			if (newLength < 2)
 				newLength = 2;
+			if (newLength < minLineNumberLength)
+                newLength = minLineNumberLength;
 
 			if (newLength != maxLineNumberLength) {
 				maxLineNumberLength = newLength;

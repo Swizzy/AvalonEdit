@@ -29,6 +29,14 @@ namespace ICSharpCode.AvalonEdit.Snippets
 	[Serializable]
 	public class Snippet : SnippetContainerElement
 	{
+        public Snippet() { }
+
+        public Snippet(string name) { Name = name; }
+
+		private string _name;
+
+		string Name { get { return _name; } set { _name = value; } }
+
 		/// <summary>
 		/// Inserts the snippet into the text area.
 		/// </summary>
